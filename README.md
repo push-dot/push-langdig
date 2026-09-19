@@ -1,34 +1,37 @@
-# push-langdig
+# Push Langdig
 
-Push 데스크톱 앱의 랜딩 페이지. https://push-langdig.pages.dev
+알림으로 배우는 영어. 영어를 모르는 사람을 위한 한국어 퍼스트 영어 학습 서비스의 원페이지 랜딩.
 
-## 구조
+## Stack
 
-```
-index.html                     원페이지 랜딩 (순수 HTML/CSS/JS)
-fragments/                     페이지 프래그먼트
-DESIGN.md                      디자인 토큰과 구조 설명
-```
+- 순수 정적 사이트: `index.html` 한 페이지, 서버/빌드 도구 없음
+- Tailwind CSS v4 (`@tailwindcss/browser` CDN) + 인라인 `@theme` 토큰
+- HTMX 2.x: 다운로드 확인 프래그먼트(`fragments/download-ok.html`) 스왑
+- 폰트: Pretendard Variable, JetBrains Mono (CDN)
 
-## 로컬 실행
+## Run
 
 ```bash
 python3 -m http.server 4173
-# http://localhost:4173
+# open http://localhost:4173
 ```
 
-## 배포
+## Smoke test
 
-- Cloudflare Pages, Git 연동 — `main` 브랜치 푸시 시 프로덕션 자동 배포
-- `develop` 등 다른 브랜치는 프리뷰 배포
-- 작업은 `develop`에서, 머지 대상은 `main`
+```bash
+python3 -m http.server 4173 &
+curl -sf http://localhost:4173/ | grep -q 'Push Langdig' && echo OK-index
+curl -sf http://localhost:4173/fragments/download-ok.html | grep -q '다운로드가 시작되었습니다' && echo OK-fragment
+curl -sfI http://localhost:4173/assets/push-langdig-starter.zip | grep -q '200' && echo OK-zip
+```
 
-## 다운로드 링크
+## Download behavior
 
-GitHub Releases `latest` 고정 링크 — push-fe에 `v*` 태그가 푸시되면 CI가 새 설치 파일을 올리고 랜딩은 자동으로 최신을 가리킨다.
+`#download`의 "스타터 팩 받기" 버튼은 실제 파일 `assets/push-langdig-starter.zip`(표현 카드 30장 CSV + 시작 가이드)을 내려받습니다.
 
-- macOS: `https://github.com/push-dot/push-fe/releases/latest/download/Push_aarch64.dmg`
-- Windows: `https://github.com/push-dot/push-fe/releases/latest/download/Push_x64-setup.exe`
+- JS 있음: HTMX가 `fragments/download-ok.html`을 가져와 `#download-status`에 확인 메시지를 스왑하고, 동일 클릭으로 ZIP 다운로드를 트리거합니다.
+- JS 없음: `<a download>` 폴백으로 파일이 그대로 저장됩니다.
 
-macOS는 서명/공증이 없어 Gatekeeper 경고가 뜬다. 랜딩의 다운로드 버튼이
-`xattr -cr /Applications/Push.app` 안내 모달을 띄운다.
+## Nav
+
+모든 내비게이션은 동일 페이지 앵커(`#features`, `#how`, `#privacy`, `#download`)로 스크롤합니다. 별도 라우트 없음.
