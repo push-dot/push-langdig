@@ -104,14 +104,17 @@ tailwind.config = {
         자기소개서를 씁니다. 지어내지 않습니다 — 증거가 있는 문장만 만듭니다.
       </p>
       <div class="mt-10 flex flex-wrap items-center gap-4">
-        <a href="https://github.com/push-dot/push-fe/releases/latest/download/Push_aarch64.dmg" class="rounded-full bg-surface px-8 py-3.5 text-sm font-semibold text-ink transition hover:bg-accent">
+        <button type="button" data-mac-download class="rounded-full bg-surface px-8 py-3.5 text-sm font-semibold text-ink transition hover:bg-accent">
           macOS용 다운로드
+        </button>
+        <a href="https://github.com/push-dot/push-fe/releases/latest/download/Push_x64-setup.exe" class="rounded-full border border-line px-8 py-3.5 text-sm font-semibold text-surface transition hover:border-surface/30 hover:bg-surface/10">
+          Windows용 다운로드
         </a>
         <a href="#features" class="rounded-full border border-line px-8 py-3.5 text-sm text-surface/70 transition hover:border-surface/30 hover:text-surface">
           기능 보기
         </a>
       </div>
-      <p class="mt-4 text-xs text-surface/40">Apple Silicon · 최신 버전은 GitHub Release에서 자동으로 연결됩니다</p>
+      <p class="mt-4 text-xs text-surface/40">macOS Apple Silicon · Windows x64 · 최신 버전은 GitHub Release에서 자동으로 연결됩니다</p>
 
       <div class="float-card mt-16 squircle border border-line bg-inkSoft/80 p-2 shadow-2xl shadow-black/50">
         <div class="squircle overflow-hidden border border-line bg-ink">
@@ -255,16 +258,19 @@ tailwind.config = {
   <section id="download" class="grid-bg border-t border-line px-6 py-28">
     <div class="mx-auto max-w-3xl text-center">
       <h2 class="text-3xl font-bold tracking-tight md:text-5xl">지금 밀어넣기 시작하세요.</h2>
-      <p class="mt-5 text-surface/60">macOS Apple Silicon · 무료로 시작</p>
+      <p class="mt-5 text-surface/60">macOS Apple Silicon · Windows x64 · 무료로 시작</p>
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href="https://github.com/push-dot/push-fe/releases/latest/download/Push_aarch64.dmg" class="rounded-full bg-surface px-10 py-4 text-sm font-semibold text-ink transition hover:bg-accent">
+        <button type="button" data-mac-download class="rounded-full bg-surface px-10 py-4 text-sm font-semibold text-ink transition hover:bg-accent">
           macOS용 다운로드
+        </button>
+        <a href="https://github.com/push-dot/push-fe/releases/latest/download/Push_x64-setup.exe" class="rounded-full border border-line px-10 py-4 text-sm font-semibold text-surface transition hover:border-surface/30 hover:bg-surface/10">
+          Windows용 다운로드
         </a>
         <a href="https://github.com/push-dot/push-fe/releases/latest" class="rounded-full border border-line px-10 py-4 text-sm text-surface/70 transition hover:border-surface/30 hover:text-surface">
           릴리즈 노트
         </a>
       </div>
-      <p class="mt-5 text-xs text-surface/40">다운로드 링크는 항상 최신 릴리즈의 dmg를 가리킵니다</p>
+      <p class="mt-5 text-xs text-surface/40">다운로드 링크는 항상 최신 릴리즈의 설치 파일을 가리킵니다</p>
     </div>
   </section>
 </main>
@@ -279,6 +285,42 @@ tailwind.config = {
     <span>© 2026 Push</span>
   </div>
 </footer>
+
+<div id="mac-warning" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink/80 px-6 backdrop-blur-sm">
+  <div class="w-full max-w-md rounded-2xl border border-line bg-inkSoft p-6 shadow-2xl shadow-black/60">
+    <h3 class="text-base font-semibold text-surface">macOS에서 "손상된 파일" 경고가 뜰 수 있습니다</h3>
+    <p class="mt-3 text-sm leading-relaxed text-surface/60">
+      Push는 아직 Apple 공증을 거치지 않아 Gatekeeper가 실행을 막습니다. 파일이 손상된 것은 아닙니다.
+      dmg를 열어 Push.app를 Applications로 옮긴 뒤, 터미널에서 아래 명령을 한 번 실행하세요.
+    </p>
+    <code class="mt-4 block rounded-lg border border-line bg-ink px-4 py-3 font-mono text-xs text-accent">xattr -cr /Applications/Push.app</code>
+    <div class="mt-6 flex items-center justify-end gap-3">
+      <button type="button" data-mac-cancel class="rounded-full border border-line px-5 py-2.5 text-sm text-surface/70 transition hover:border-surface/30 hover:text-surface">취소</button>
+      <a href="https://github.com/push-dot/push-fe/releases/latest/download/Push_aarch64.dmg" class="rounded-full bg-surface px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-accent">계속 다운로드</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const macWarning = document.getElementById('mac-warning');
+document.querySelectorAll('[data-mac-download]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    macWarning.classList.remove('hidden');
+    macWarning.classList.add('flex');
+  });
+});
+const closeMacWarning = () => {
+  macWarning.classList.add('hidden');
+  macWarning.classList.remove('flex');
+};
+macWarning.querySelector('[data-mac-cancel]').addEventListener('click', closeMacWarning);
+macWarning.addEventListener('click', (e) => {
+  if (e.target === macWarning) closeMacWarning();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMacWarning();
+});
+</script>
 
 <script>
 const btn = document.getElementById('menuBtn')
