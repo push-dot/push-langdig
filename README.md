@@ -44,15 +44,3 @@
 
 - JS 있음 — HTMX가 `fragments/download-ok.html`을 가져와 `#download-status`에 확인 메시지를 스왑하고, 같은 클릭으로 ZIP 다운로드 실행
 - JS 없음 — `<a download>` 폴백으로 파일이 그대로 저장
-
-## 구조
-
-```
-index.html                       원페이지 랜딩 (앵커 내비: #features #how #privacy #download)
-fragments/download-ok.html       HTMX 다운로드 확인 프래그먼트
-assets/push-starter.zip          다운로드 아티팩트
-assets/career-checklist.md       스타터 팩 안내 (ZIP 원본)
-assets/resume-checklist.md       이력서 점검 체크리스트 (ZIP 원본)
-assets/job-analysis-template.md  공고 분석 템플릿 (ZIP 원본)
-DESIGN.md                        디자인 리서치·토큰·규칙·수용 부채
-```
