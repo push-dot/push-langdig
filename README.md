@@ -38,28 +38,12 @@
 - **Pretendard Variable + JetBrains Mono** — CDN 폰트
 - 디자인 토큰·레이아웃 규칙·수용 부채는 [DESIGN.md](DESIGN.md) 참조
 
-## 시작하기
-
-```sh
-python3 -m http.server 4173
-# http://localhost:4173
-```
-
 ## 다운로드 동작
 
 "스타터 팩 받기" 버튼은 실제 파일 `assets/push-starter.zip`(이력서 점검 체크리스트 + 공고 분석 템플릿)을 저장한다.
 
 - JS 있음 — HTMX가 `fragments/download-ok.html`을 가져와 `#download-status`에 확인 메시지를 스왑하고, 같은 클릭으로 ZIP 다운로드 실행
 - JS 없음 — `<a download>` 폴백으로 파일이 그대로 저장
-
-## 스모크 테스트
-
-```sh
-python3 -m http.server 4173 &
-curl -sf http://localhost:4173/ | grep -q '커리어 작업공간' && echo OK-index
-curl -sf http://localhost:4173/fragments/download-ok.html | grep -q '다운로드가 시작되었습니다' && echo OK-fragment
-curl -sfI http://localhost:4173/assets/push-starter.zip | grep -q '200' && echo OK-zip
-```
 
 ## 구조
 
