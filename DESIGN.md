@@ -1,4 +1,4 @@
-# DESIGN.md - Push Langdig landing
+# DESIGN.md - Push landing
 
 ## Reference research
 
@@ -10,7 +10,7 @@ Visual grammar inspired by aside.com (measured live, per brief notes):
 - Mobile ~390px: hamburger nav, left-aligned ~36px hero, 24px gutters
 - Desktop: 64-72px nav, max-w-6xl content column
 
-Original identity: "P" squircle mark (ink tile, cyan stroke path), Korean-first copy. No Aside assets, copy, or logo reused.
+Original identity: "P" squircle mark (ink tile, cyan stroke path), Korean-first copy for the Push career workspace product. No Aside assets, copy, or logo reused.
 
 ## Tokens
 
